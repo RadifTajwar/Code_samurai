@@ -72,7 +72,7 @@ exports.forgotPassword = catchAsyncError(async(req,res,next)=>{
 
      const resetToken = await user.getResetPasswordToken();
      console.log(`The reset token is ${resetToken}`);
-     resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+     const resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
      console.log(`The reset token after hashed is ${resetPasswordToken}`);
      await user.save({validateBeforeSave:false});
 
