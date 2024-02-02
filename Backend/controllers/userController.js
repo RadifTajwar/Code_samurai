@@ -1,4 +1,4 @@
-const Users =require('../models/userModel');
+const Us =require('../models/userModel');
 const catchAsyncError = require('../middleware/catchAsyncError');
 const errorHandler = require('../utils/errorHandler');
 const nodemailer = require('nodemailer');
@@ -10,7 +10,7 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
     const { name, email, password } = req.body;
 
     // Create a new user with the provided data
-    const user = await Users.create({
+    const user = await Us.create({
         name, email, password
         
     });
@@ -71,9 +71,10 @@ exports.forgotPassword = catchAsyncError(async(req,res,next)=>{
      }
 
      const resetToken = await user.getResetPasswordToken();
-     console.log(`The reset token is ${resetToken}`);
-     resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+     
+     const resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
      console.log(`The reset token after hashed is ${resetPasswordToken}`);
+
      await user.save({validateBeforeSave:false});
 
      const resetPasswordURL = `${process.env.FRONTEND_URL}password/reset/${resetToken}`;
@@ -109,10 +110,10 @@ exports.resetPassword = catchAsyncError(async(req,res,next)=>{
         resetPasswordToken :resetPasswordToken
         // resetPasswordExpiry :{ $gt : Date.now()  }
     });
-    const allUsers = await Users.find({});
+   
   
    
-    console.log(user);
+  
     if(!user){
         return next(new errorHandler('Reset Password Token is Invalid or Expired!', 400));
     }

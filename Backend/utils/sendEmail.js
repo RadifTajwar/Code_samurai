@@ -2,7 +2,7 @@ const  {Resend}  =require('resend');
 
 const sendEmail = (options)=>{
     
-    const resend = new Resend('re_eXgM76h2_Q17T7pfAmZeKjwi17AQwFSzy')
+    const resend = new Resend(process.env.RESEND_API_KEY)
     resend.emails.send({
         from: 'onboarding@resend.dev',
         to: 'radiftajwarmahi420@gmail.com',

@@ -21,8 +21,8 @@ app.use(express.json());
 // Import and use routes for different parts of the API
 
 const user = require('./routes/userRoutes');
-
+const book = require('./routes/bookRoutes')
 app.use('/api/v1', user);
-
+app.use('/api',book)
 // Export the Express app for use in other parts of the application
 module.exports = app;
