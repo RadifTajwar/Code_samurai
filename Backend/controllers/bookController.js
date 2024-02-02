@@ -59,7 +59,10 @@ exports.getBook = catchAsyncError(async (req, res, next) => {
     const book = await Books.findOne({ id: id });
     console.log("book fetched successfully");
     res.status(200).json({
-      book
+      id: book.id,
+      title: book.title,
+      author: book.author,
+      genre: book.genre,
     });
   } catch (error) {}
 });
@@ -74,7 +77,7 @@ exports.getAllBooks = catchAsyncError(async (req, res, next) => {
       res.status(200).json({
         books
       });
-    } else {
+    } else { 
       const title = query.title;
       const author = query.author;
       const genre = query.genre;
